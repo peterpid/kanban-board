@@ -3,13 +3,17 @@
 <head>
     <meta charset="utf-8">
     <title>Kanban board</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div id="board" class="board">
-        <h1>Kanban board</h1>
-        <button class="create-column">Add a column</button>
-        <div class="column-container"></div>
+	<div class="container">
+		<div id="board" class="board">
+			<h1>Kanban board</h1>
+			<button class="create-column">Add a column</button>
+			<div class="row column-container">
+			</div>
+		</div>
 	</div>
     <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
     <script   src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="   crossorigin="anonymous"></script>

@@ -22,12 +22,16 @@ $(function() {
         this.$element = createColumn();
 
         function createColumn() {
-            var $column         = $('<div>').addClass('col');
-            var $columnTitle    = $('<h2>').addClass('column-title').text(self.name);
-            var $columnCardList = $('<ul>').addClass('column-card-list list-unstyled');
-            var $columnDelete   = $('<button>').addClass('btn-delete').text('x');
-            var $columnAddCard  = $('<button>').addClass('add-card').text('Add a card');
-            
+            var $column           = $('<div>').addClass('col card-placeholder card mx-1 my-3');
+            var $columnTitle      = $('<h2>').addClass('column-title').text(self.name);
+            var $columnCardList   = $('<ul>').addClass('column-card-list list-unstyled');
+            var $columnDelete     = $('<button>').addClass('btn btn-secondary my-1');
+                $columnDelete.attr('title', 'Delete column'); //add tooltip
+            var $deleteColumnIcon = $('<i>').addClass('material-icons').text('delete_forever');
+            var $columnAddCard    = $('<button>').addClass('btn btn-primary btn-add-card my-1');
+                $columnAddCard.attr('title', 'New card'); //add tooltip
+            var $newCardIcon      = $('<i>').addClass('material-icons p-0').text('note_add');
+
             $columnDelete.click(function() {
                 self.removeColumn();
             });
@@ -38,8 +42,9 @@ $(function() {
                 if (!isEmpty(cardName)){
                     self.addCard(new Card(cardName));
                 }
-            });        
-
+            });
+            $columnDelete.append($deleteColumnIcon);
+            $columnAddCard.append($newCardIcon);
             $column.append($columnTitle)
                 .append($columnDelete)
                 .append($columnAddCard)
@@ -69,18 +74,22 @@ $(function() {
         this.$element = createCard();
 
         function createCard() {
-            var $card = $('<li>').addClass('card');
-            var $cardContatiner = $('<div>').addClass('media');
-            var $cardBody = $('<div>').addClass('card-body media-body');
-            var $cardTitle = $('<h5>').addClass('card-title mt-0').text(self.title);
+            var $card            = $('<li>').addClass('card alert alert-primary my-1');
+            var $cardContatiner  = $('<div>').addClass('media');
+            var $cardBody        = $('<div>').addClass('card-body media-body');
+            var $cardTitle       = $('<h5>').addClass('card-title mt-0').text(self.title);
             var $cardDescription = $('<p>').addClass('card-description').text(self.description);
-            var $cardDelete = $('<button>').addClass('btn-delete align-self-center ml-3').text('x');
+            var $cardDelete      = $('<button>').addClass('btn btn-light align-self-center ml-3 mr-1');
+                $cardDelete.attr('title', 'Delete card'); //add tooltip
+            var $deleteCardIcon  = $('<i>').addClass('material-icons pt-2 pb-0').text('delete');
+
 
             $cardDelete.click(function(){
                 self.removeCard();
             });
 
             $card.append($cardContatiner);
+            $cardDelete.append($deleteCardIcon);
             $cardContatiner.append($cardBody)
                 .append($cardDelete);
             $cardBody.append($cardTitle)
@@ -116,7 +125,7 @@ $(function() {
         var name = prompt('Enter a column name', 'New column');
         if (!isEmpty(name)) {
             var column = new Column(name);
-                board.addColumn(column);
+            board.addColumn(column);
         }
     });
 

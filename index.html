@@ -5,18 +5,20 @@
     <title>Kanban board</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="container">
-		<div id="board" class="board">
-			<h1>Kanban board</h1>
-			<div class="row column-container float-left"></div>
-			<button class="create-column btn btn-light  border border-light ml-3 my-3 pt-1 pb-0 px-1" title="Add new column">
-				<i class="material-icons">add</i>
-			</button>
+	<main>
+		<div id="board" class="board container">
+			<h1 class="text-center">Kanban board</h1>
+			<div class="w-100">
+				<div class="row column-container">
+					<button class="create-column btn btn-light text-secondary border border-light float-left ml-3 my-3 pt-1 pb-0 px-1" title="Add new column">
+						<i class="material-icons">add</i>
+					</button>
+				</div>
+			</div>
 		</div>
-	</div>
+	</main>
 
     <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
     <script   src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="   crossorigin="anonymous"></script>

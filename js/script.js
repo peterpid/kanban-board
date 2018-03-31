@@ -22,32 +22,46 @@ $(function() {
         this.$element = createColumn();
 
         function createColumn() {
-            var $column           = $('<div>').addClass('col card-placeholder card mx-1 my-3');
-            var $columnTitle      = $('<h2>').addClass('column-title').text(self.name);
-            var $columnCardList   = $('<ul>').addClass('column-card-list list-unstyled');
-            var $columnDelete     = $('<button>').addClass('btn btn-secondary my-1');
-                $columnDelete.attr('title', 'Delete column'); //add tooltip
-            var $deleteColumnIcon = $('<i>').addClass('material-icons').text('delete_forever');
-            var $columnAddCard    = $('<button>').addClass('btn btn-primary btn-add-card my-1');
-                $columnAddCard.attr('title', 'New card'); //add tooltip
-            var $newCardIcon      = $('<i>').addClass('material-icons p-0').text('note_add');
+            var $column              = $('<div>').addClass('col card-placeholder card mx-1 my-3 p-3');
+            var $columnTitleHolder   = $('<div>').addClass('column-title-holder');
+            var $columnTitle         = $('<h2>').addClass('column-title float-left').text(self.name);
+            var $columnDeleteButton  = $('<div>').addClass('btn text-secondary my-1 pt-1 pb-0 px-1 float-right');
+                $columnDeleteButton.attr('title', 'Delete column'); //add tooltip
+            var $deleteColumnIcon    = $('<i>').addClass('material-icons').text('remove_circle_outline');
+            var $columnCardList      = $('<ul>').addClass('column-card-list list-unstyled');
+            var $columnAddCardButton = $('<button>').addClass('btn btn-light btn-add-card my-1 pt-1 pb-0 px-1');
+                $columnAddCardButton.attr('title', 'New card'); //add tooltip
+            var $newCardIcon         = $('<i>').addClass('material-icons').text('add');
 
-            $columnDelete.click(function() {
+            $columnDeleteButton.click(function() {
                 self.removeColumn();
             });
             
+            $columnDeleteButton.hover(
+                function() { //handlerIn
+                    $columnDeleteButton.addClass('btn-danger');
+                    $columnDeleteButton.removeClass('text-secondary');
+                }
+                ,
+                function() { //handlerOut
+                    $columnDeleteButton.removeClass('btn-danger');
+                    $columnDeleteButton.addClass('text-secondary');
+                }
+            );
+
             //Add a note after clicking on the button:
-            $columnAddCard.click(function() {
+            $columnAddCardButton.click(function() {
                 var cardName = prompt('Enter the name of the card', 'New task 1');
                 if (!isEmpty(cardName)){
                     self.addCard(new Card(cardName));
                 }
             });
-            $columnDelete.append($deleteColumnIcon);
-            $columnAddCard.append($newCardIcon);
-            $column.append($columnTitle)
-                .append($columnDelete)
-                .append($columnAddCard)
+            $columnDeleteButton.append($deleteColumnIcon);
+            $columnTitleHolder.append($columnTitle)
+                .append($columnDeleteButton);
+            $columnAddCardButton.append($newCardIcon);
+            $column.append($columnTitleHolder)
+                .append($columnAddCardButton)
                 .append($columnCardList);
             
             return $column;
@@ -74,24 +88,35 @@ $(function() {
         this.$element = createCard();
 
         function createCard() {
-            var $card            = $('<li>').addClass('card alert alert-primary my-1');
-            var $cardContatiner  = $('<div>').addClass('media');
-            var $cardBody        = $('<div>').addClass('card-body media-body');
-            var $cardTitle       = $('<h5>').addClass('card-title mt-0').text(self.title);
-            var $cardDescription = $('<p>').addClass('card-description').text(self.description);
-            var $cardDelete      = $('<button>').addClass('btn btn-light align-self-center ml-3 mr-1');
-                $cardDelete.attr('title', 'Delete card'); //add tooltip
-            var $deleteCardIcon  = $('<i>').addClass('material-icons pt-2 pb-0').text('delete');
+            var $card             = $('<li>').addClass('card alert alert-primary my-1 p-0');
+            var $cardContatiner   = $('<div>').addClass('media p-0');
+            var $cardBody         = $('<div>').addClass('card-body media-body');
+            var $cardTitle        = $('<h5>').addClass('card-title mt-0').text(self.title);
+            var $cardDescription  = $('<p>').addClass('card-description').text(self.description);
+            var $cardDeleteButton = $('<div>').addClass('btn text-secondary align-self-end m-0 pt-1 pb-0 px-1');
+                $cardDeleteButton.attr('title', 'Delete card'); //add tooltip
+            var $deleteCardIcon   = $('<i>').addClass('material-icons').text('delete');
 
-
-            $cardDelete.click(function(){
+            $cardDeleteButton.click(function(){
                 self.removeCard();
             });
 
+            $cardDeleteButton.hover(
+                function() { //handlerIn
+                    $cardDeleteButton.addClass('btn-danger');
+                    $cardDeleteButton.removeClass('text-secondary');
+                }
+                ,
+                function() { //handlerOut
+                    $cardDeleteButton.removeClass('btn-danger');
+                    $cardDeleteButton.addClass('text-secondary');
+                }
+            );
+
             $card.append($cardContatiner);
-            $cardDelete.append($deleteCardIcon);
+            $cardDeleteButton.append($deleteCardIcon);
             $cardContatiner.append($cardBody)
-                .append($cardDelete);
+                .append($cardDeleteButton);
             $cardBody.append($cardTitle)
                 .append($cardDescription);
                 

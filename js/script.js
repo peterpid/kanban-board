@@ -41,8 +41,7 @@ $(function() {
                 function() { //handlerIn
                     $columnDeleteButton.addClass('btn-danger');
                     $columnDeleteButton.removeClass('text-secondary');
-                }
-                ,
+                },
                 function() { //handlerOut
                     $columnDeleteButton.removeClass('btn-danger');
                     $columnDeleteButton.addClass('text-secondary');
@@ -105,8 +104,7 @@ $(function() {
                 function() { //handlerIn
                     $cardDeleteButton.addClass('btn-danger');
                     $cardDeleteButton.removeClass('text-secondary');
-                }
-                ,
+                },
                 function() { //handlerOut
                     $cardDeleteButton.removeClass('btn-danger');
                     $cardDeleteButton.addClass('text-secondary');

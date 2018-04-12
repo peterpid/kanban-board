@@ -1,9 +1,8 @@
-//COLUMN
-function Column(name) {
+function Column(id, name) {
 var self = this; // useful for nested functions
 
-    this.id = randomString();
-    this.name = name;
+    this.id = id;
+    this.name = name || 'New column';
     this.$element = createColumn();
 
     function createColumn() {
@@ -36,10 +35,24 @@ var self = this; // useful for nested functions
         //Add a note after clicking on the button:
         $columnAddCardButton.click(function() {
             var cardName = prompt('Enter the name of the card', 'New task 1');
-            if (!isEmpty(cardName)){
-                self.addCard(new Card(cardName));
+            if (isEmpty(cardName)){
+                return;
             }
+
+            $.ajax({
+                    url: baseUrl + '/card',
+                    method: 'POST',
+                    data: {
+                        name: cardName,
+                        bootcamp_kanban_column_id: self.id
+                    },
+                    success: function(response) {
+                        var card = new Card(response.id, cardName);
+                        self.addCard(card);
+                    }
+            });
         });
+
         $columnDeleteButton.append($deleteColumnIcon);
         $columnTitleHolder.append($columnTitle)
         .append($columnDeleteButton);
@@ -58,6 +71,14 @@ Column.prototype = {
     },
 
     removeColumn: function() {
+        var self = this;
+        $.ajax({
+            url: baseUrl + '/column/' + self.id,
+            method: 'DELETE',
+            success: function(response){
+            self.$element.remove();
+        }
+    });
         this.$element.remove();
     }
 };

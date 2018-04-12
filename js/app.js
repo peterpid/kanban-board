@@ -2,39 +2,38 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
-function randomString() {
-    var chars = '0123456789abcdefghiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXTZ';
-    var str = '';
-    for (var i = 0; i < 10; i++) {
-        str += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return str;
-}
+var baseUrl = 'https://kodilla.com/pl/bootcamp-api';
+var myHeaders = {
+    'X-Client-Id': '3080',
+    'X-Auth-Token': '77646c064f94c5e837c0f5d2c86e8ffa'
+};
 
 $(function() {
 
-    // CREATING COLUMNS
-    var todoColumn = new Column('To do');
-    var inprogressColumn = new Column('In progress');
-    var doneColumn = new Column('Done');
+    $.ajaxSetup({
+        headers: myHeaders
+    });
 
-    // ADDING COLUMNS TO THE BOARD
-    board.addColumn(todoColumn);
-    board.addColumn(inprogressColumn);
-    board.addColumn(doneColumn);
+    $.ajax({
+        url: baseUrl + '/board',
+        method: 'GET',
+        success: function(response) {
+            setupColumns(response.columns);
+        }
+    });
 
-    // CREATING CARDS
-    var card1 = new Card('Mission to Mars', 'Invent new rocket engine');
-    var card2 = new Card('Task2');
-    var card3 = new Card('Task3');
-    var card4 = new Card('Task4');
-    var card5 = new Card('Task5');
+    function setupColumns(columns) {
+        columns.forEach(function (column) {
+            var col = new Column(column.id, column.name);
+            board.addColumn(col);
+            setupCards(col, column.cards);
+        });
+    }
 
-    // ADDING CARDS TO COLUMNS
-    todoColumn.addCard(card1);
-    todoColumn.addCard(card2);
-    inprogressColumn.addCard(card3);
-    inprogressColumn.addCard(card4);
-    doneColumn.addCard(card5);
-
+    function setupCards(col, cards) {
+        cards.forEach(function (card) {
+            var cardObj = new Card(card.id, card.name, card.bootcamp_kanban_column_id);
+            col.addCard(cardObj);
+        });
+    }
 });

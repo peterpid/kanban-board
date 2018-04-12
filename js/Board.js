@@ -15,9 +15,19 @@ var board = {
 };
 
 $('.create-column').click(function(){
-    var name = prompt('Enter a column name', 'New column');
-    if (!isEmpty(name)) {
-        var column = new Column(name);
-        board.addColumn(column);
+    var columnName = prompt('Enter a column name', 'New column');
+    if (isEmpty(columnName)) {
+        return;
     }
+    $.ajax({
+        url: baseUrl + '/column',
+        method: 'POST',
+        data: {
+            name: columnName
+        },
+        success: function(response){
+            var column = new Column(response.id, columnName);
+            board.addColumn(column);
+        }
+    });
 });
